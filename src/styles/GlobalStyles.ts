@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyles = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'OptimusPrinceps';
     font-style: normal;
@@ -17,4 +17,8 @@ const GlobalStyles = createGlobalStyle`
     }
 `;
 
-export default GlobalStyles;
+export const ThemesColors = {
+  orangePrimary: '#FF6000',
+  grayPrimary: '#403D38',
+  whitePrimary: '#F8F7F3'
+}
