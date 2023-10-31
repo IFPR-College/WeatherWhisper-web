@@ -13,7 +13,7 @@ const Container = styled.div`
 `
 
 const InputStyled = styled(Input)`
-    height:50px;
+    height:40px;
     width:100%;
     font-family: 'OptimusPrinceps', sans-serif;
     font-size:20px;
@@ -23,6 +23,7 @@ const InputStyled = styled(Input)`
     border-radius:5px;
     border:none;
     outline:none;
+    background-color: ${ThemesColors.whitePrimary   };
 `
 
 const ButtonContainer = styled.div`
@@ -79,6 +80,15 @@ const Tabs = styled.div`
     align-items:center;
 `
 
+const ErrorOcurredContainer = styled.div`
+    height:50px;
+    width:100%;
+    margin: 5px 0px 5px 0px;
+    display:flex;
+    justify-content:center;
+    color:#fff;    
+`
+
 export const WeatherScreenStyle = {
     Container,
     InputField,
@@ -86,5 +96,6 @@ export const WeatherScreenStyle = {
     Tabs,
     InputStyled,
     ButtonStyled,
-    ButtonContainer
+    ButtonContainer,
+    ErrorOcurredContainer
 }
