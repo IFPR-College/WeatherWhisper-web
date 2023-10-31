@@ -19,6 +19,8 @@ export const GlobalStyles = createGlobalStyle`
 
 export const ThemesColors = {
   orangePrimary: '#FF6000',
+  orangePrimaryHover : '#FF9300',
+  orangePrimaryClick : '#E64B0B',
   grayPrimary: '#403D38',
   whitePrimary: '#F8F7F3'
 }
