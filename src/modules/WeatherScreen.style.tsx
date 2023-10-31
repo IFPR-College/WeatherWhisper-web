@@ -78,6 +78,8 @@ const Tabs = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-direction: column;
+    position: relative;
 `
 
 const ErrorOcurredContainer = styled.div`
@@ -89,6 +91,16 @@ const ErrorOcurredContainer = styled.div`
     color:#fff;    
 `
 
+const TabNameLocation = styled.div`
+    height: 20px;
+    position: absolute;
+    top:10px;
+    display:flex;
+    width:100%;
+    align-items:center;
+    justify-content:center;
+`
+
 export const WeatherScreenStyle = {
     Container,
     InputField,
@@ -97,5 +109,6 @@ export const WeatherScreenStyle = {
     InputStyled,
     ButtonStyled,
     ButtonContainer,
-    ErrorOcurredContainer
+    ErrorOcurredContainer,
+    TabNameLocation,
 }

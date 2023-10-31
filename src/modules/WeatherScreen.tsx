@@ -13,6 +13,7 @@ export default function WeatherScreen() {
     const [value, setValue] = useState('')
     const [doneSearchForecast, setDoneSearchForecast] = useState(false)
     const [dataForecast, setDataForecast] = useState<any>([])
+    const [locationForecast, setLocationForecast] = useState<any>()
     const [errorOnRequest, setErrorOnRequest] = useState(false)
     const [errorMessageRequest, setErrorMessageReques] = useState('')
 
@@ -23,15 +24,12 @@ export default function WeatherScreen() {
             .get(`${API_URL_WITH_KEY}${location}&days=3&aqi=no&alerts=no`)
             .then((response: any) => {
                 const { data } = response
-                setDataForecast(data)
-                console.log('caiu no then', response)
+                setDataForecast(data.forecast)
+                setLocationForecast(data.location)
             })
             .catch((response: any) => {
                 setErrorOnRequest(true)
-                console.log(`${response.response.data.error.code} - ${response.response.data.error.message}`);
-                
-                setErrorMessageReques(`${response.data.error.code} - ${response.data.error.message}`)
-                console.log('caiu no catch', response)
+                setErrorMessageReques(`Status code: ${response.response.status} - ${response.message}`)
             })
     }
 
@@ -39,13 +37,21 @@ export default function WeatherScreen() {
         if (errorOnRequest && errorMessageRequest.length > 0) {
             return (
                 <WeatherScreenStyle.ErrorOcurredContainer>
-                    <Alert status="error">
+                    <Alert status="error" style={{ display: 'flex', justifyContent: 'center' }}>
                         {errorMessageRequest}
                     </Alert>
                 </WeatherScreenStyle.ErrorOcurredContainer>
             )
         }
     }
+
+    function handleKeyUp(e: any) {
+        if (e.code == 'Enter' || e.code == 'NumpadEnter') {
+            getForecastData(value)
+        }
+    }
+
+    console.log(locationForecast)
 
     return (
         <WeatherScreenStyle.Container>
@@ -54,6 +60,7 @@ export default function WeatherScreen() {
                     value={value}
                     onChange={handleChange}
                     placeholder="Digite uma cidade"
+                    onKeyUp={(e: any) => handleKeyUp(e)}
                 />
                 <WeatherScreenStyle.ButtonContainer
                     onClick={() => getForecastData(value)}
@@ -65,9 +72,19 @@ export default function WeatherScreen() {
             </WeatherScreenStyle.InputField>
             {renderErrorIfOcurred()}
             <WeatherScreenStyle.TabsContainer>
-                <WeatherScreenStyle.Tabs>YOU DIE</WeatherScreenStyle.Tabs>
-                <WeatherScreenStyle.Tabs>YOU DIE</WeatherScreenStyle.Tabs>
-                <WeatherScreenStyle.Tabs>YOU DIE</WeatherScreenStyle.Tabs>
+                {dataForecast?.forecastday?.map((item: any, index: number) => {
+                    console.log(item)
+                    
+                    return(
+                        <WeatherScreenStyle.Tabs key={`item-${index}`}>
+                            <WeatherScreenStyle.TabNameLocation>{locationForecast.name} - {locationForecast.region}</WeatherScreenStyle.TabNameLocation>
+                            
+                            {index}    
+                        </WeatherScreenStyle.Tabs>
+
+                    )
+                })}
+
             </WeatherScreenStyle.TabsContainer>
         </WeatherScreenStyle.Container>
     )
