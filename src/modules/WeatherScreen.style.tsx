@@ -92,13 +92,43 @@ const ErrorOcurredContainer = styled.div`
 `
 
 const TabNameLocation = styled.div`
-    height: 20px;
-    position: absolute;
-    top:10px;
     display:flex;
     width:100%;
     align-items:center;
     justify-content:center;
+    padding-top: 5px;
+`
+
+const TabDate = styled(TabNameLocation)`
+    padding-top: 10px;
+`
+
+const TabHeader = styled.div`
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    flex-direction: column;
+    flex-grow: 1;
+    width:100%;
+`
+
+const TabBody = styled.div`
+    display:flex;
+    width:100%;
+    flex-grow: 2;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+`
+
+const TabFooter = styled.div`
+    display:flex;
+    width:100%;
+    flex-grow: 2;
+    background-color: #f88;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
 `
 
 export const WeatherScreenStyle = {
@@ -111,4 +141,8 @@ export const WeatherScreenStyle = {
     ButtonContainer,
     ErrorOcurredContainer,
     TabNameLocation,
+    TabHeader,
+    TabBody,
+    TabFooter,
+    TabDate
 }
