@@ -67,6 +67,7 @@ const InputField = styled.div`
 const TabsContainer = styled.div`
     display: flex;
     flex-grow: 1;
+    align-items:center;
 `
 
 const Tabs = styled.div`
@@ -80,6 +81,11 @@ const Tabs = styled.div`
     align-items: center;
     flex-direction: column;
     position: relative;
+    cursor:pointer;
+
+    :hover {
+        background-color: #f00
+    }
 `
 
 const ErrorOcurredContainer = styled.div`
@@ -125,10 +131,10 @@ const TabFooter = styled.div`
     display: flex;
     width: 100%;
     flex-grow: 2;
-    background-color: #f88;
+    background-color: #113946;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    color:#fff;
 `
 
 const SelectContainer = styled.div`
@@ -145,10 +151,18 @@ const TempContainer = styled.div`
     display:flex;
     flex-grow: 1;
     width:100%;
-    flex-direction: row;
+    justify-content:center;
+    align-items:center;
 `
 
-
+const CurrentWeatherContainer = styled.div`
+    width:calc(100% - 60px);
+    height:50%;
+    background-color: ${ThemesColors.whitePrimary};
+    margin-right:30px;
+    margin-left:30px;
+    border-radius:15px
+`
 
 export const WeatherScreenStyle = {
     Container,
@@ -166,4 +180,6 @@ export const WeatherScreenStyle = {
     TabDate,
     SelectContainer,
     Header,
+    TempContainer,
+    CurrentWeatherContainer
 }

@@ -6,6 +6,8 @@ import { Alert } from '@chakra-ui/react'
 import moment from 'moment'
 import Select, { StylesConfig } from 'react-select'
 import { languages, placeholderTranslations } from '../utils/constants'
+import { FaTemperatureArrowUp, FaTemperatureArrowDown } from 'react-icons/fa6'
+
 const API_URL_WITH_KEY =
     'http://api.weatherapi.com/v1/forecast.json?key=ed1b060558fe44599c0234036232910&q='
 
@@ -15,15 +17,17 @@ export default function WeatherScreen() {
     const [locationForecast, setLocationForecast] = useState<any>()
     const [errorOnRequest, setErrorOnRequest] = useState(false)
     const [errorMessageRequest, setErrorMessageRequest] = useState('')
+    const [indexSelected, setIndexSelected] = useState(0)
     const [languageSelected, setLanguageSelected] = useState({
         label: '🇵🇹',
         value: 'pt',
     })
 
+
     const handleChange = (event: any, state: any) => state(event.target.value)
 
-    const customStyles:StylesConfig = {
-        
+    const customStyles: StylesConfig = {
+
         container: (provided: any) => ({
             ...provided,
             width: '90px',
@@ -33,25 +37,26 @@ export default function WeatherScreen() {
         }),
         option: (provided: any) => ({
             ...provided,
-            display:'flex',
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
         }),
 
-        
+
     }
 
     function getForecastData(location: string) {
         axios
             .get(
-                `${API_URL_WITH_KEY}${location}&days=3&aqi=no&alerts=no&lang=pt`
+                `${API_URL_WITH_KEY}${location}&days=4&aqi=no&alerts=no&lang=${languageSelected.value}`
             )
             .then((response: any) => {
                 const { data } = response
-                setDataForecast(data.forecast)
+                // const forecastFiltered = data.forecast.forecastday.filter((item:any, index:number) => index != 0)
+                setDataForecast(data.forecast.forecastday)
                 console.log(data)
-
+                setIndexSelected(0)
                 setLocationForecast(data.location)
                 setErrorOnRequest(false)
                 setErrorMessageRequest('')
@@ -115,17 +120,23 @@ export default function WeatherScreen() {
             </WeatherScreenStyle.Header>
 
             {renderErrorIfOcurred()}
+
+            {dataForecast.length > 0 ?
+                <WeatherScreenStyle.CurrentWeatherContainer />
+                : null
+            }
+
             <WeatherScreenStyle.TabsContainer>
-                {dataForecast?.forecastday?.map((item: any, index: number) => {
+                {dataForecast?.map((item: any, index: number) => {
                     return (
-                        <WeatherScreenStyle.Tabs key={`item-${index}`}>
+                        <WeatherScreenStyle.Tabs key={`item-${index}`} onClick={() => console.log('item', index)}>
                             <WeatherScreenStyle.TabHeader>
                                 <WeatherScreenStyle.TabNameLocation>
                                     {locationForecast?.name} -{' '}
                                     {locationForecast?.region}
                                 </WeatherScreenStyle.TabNameLocation>
                                 <WeatherScreenStyle.TabDate>
-                                    {moment(item?.date).format('DD/MM/YYYY')}
+                                    {languageSelected.value == 'pt' ? moment(item?.date).format('DD/MM/YYYY') : moment(item?.date).format('MM/DD/YYYY')}
                                 </WeatherScreenStyle.TabDate>
                             </WeatherScreenStyle.TabHeader>
                             <WeatherScreenStyle.TabBody>
@@ -133,7 +144,12 @@ export default function WeatherScreen() {
                                 {item?.day?.condition?.text}
                             </WeatherScreenStyle.TabBody>
                             <WeatherScreenStyle.TabFooter>
-                                
+                                <WeatherScreenStyle.TempContainer>
+                                    <div style={{ paddingRight: '10px' }}> {item?.day?.maxtemp_c}º C</div><FaTemperatureArrowUp size={32} />
+                                </WeatherScreenStyle.TempContainer>
+                                <WeatherScreenStyle.TempContainer>
+                                    <div style={{ paddingRight: '10px' }}> {item?.day?.mintemp_c}º C</div><FaTemperatureArrowDown size={32} />
+                                </WeatherScreenStyle.TempContainer>
                             </WeatherScreenStyle.TabFooter>
                         </WeatherScreenStyle.Tabs>
                     )
