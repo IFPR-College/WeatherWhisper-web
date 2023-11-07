@@ -4,7 +4,7 @@ import { TbDropletSearch } from 'react-icons/tb'
 import axios from 'axios'
 import { Alert } from '@chakra-ui/react'
 import moment from 'moment'
-import Select from 'react-select'
+import Select, { StylesConfig } from 'react-select'
 import { languages, placeholderTranslations } from '../utils/constants'
 const API_URL_WITH_KEY =
     'http://api.weatherapi.com/v1/forecast.json?key=ed1b060558fe44599c0234036232910&q='
@@ -15,21 +15,32 @@ export default function WeatherScreen() {
     const [locationForecast, setLocationForecast] = useState<any>()
     const [errorOnRequest, setErrorOnRequest] = useState(false)
     const [errorMessageRequest, setErrorMessageRequest] = useState('')
-    // const [languageSelected, setLanguageSelected] = useState({
-    //     label: '🇵🇹',
-    //     value: 'pt',
-    // })
+    const [languageSelected, setLanguageSelected] = useState({
+        label: '🇵🇹',
+        value: 'pt',
+    })
 
     const handleChange = (event: any, state: any) => state(event.target.value)
 
-    // const customStyles = {
-    //     container: (provided: any) => ({
-    //         ...provided,
-    //         width: '90px',
-    //         marginTop: '15px',
-    //         marginLeft: '5px'
-    //     }),
-    // }
+    const customStyles:StylesConfig = {
+        
+        container: (provided: any) => ({
+            ...provided,
+            width: '90px',
+            marginTop: '15px',
+            marginLeft: '5px',
+            height: '40px'
+        }),
+        option: (provided: any) => ({
+            ...provided,
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+        }),
+
+        
+    }
 
     function getForecastData(location: string) {
         axios
@@ -78,19 +89,19 @@ export default function WeatherScreen() {
     return (
         <WeatherScreenStyle.Container>
             <WeatherScreenStyle.Header>
-                {/* <WeatherScreenStyle.SelectContainer>
+                <WeatherScreenStyle.SelectContainer>
                     <Select
                         value={languageSelected}
                         onChange={(obj: any) => setLanguageSelected(obj)}
                         options={languages}
                         styles={customStyles}
                     />
-                </WeatherScreenStyle.SelectContainer> */}
+                </WeatherScreenStyle.SelectContainer>
                 <WeatherScreenStyle.InputField>
                     <WeatherScreenStyle.InputStyled
                         value={value}
                         onChange={(e: any) => handleChange(e, setValue)}
-                        placeholder="Digite uma cidade"
+                        placeholder={placeholderTranslations[languageSelected.value]}
                         onKeyUp={(e: any) => handleKeyUp(e)}
                     />
                     <WeatherScreenStyle.ButtonContainer
