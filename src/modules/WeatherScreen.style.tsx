@@ -70,8 +70,7 @@ const TabsContainer = styled.div`
     flex-grow: 1;  
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap
-    ;
+    flex-wrap: wrap;
 `
 
 const Tabs = styled.div<any>`
@@ -92,7 +91,7 @@ const Tabs = styled.div<any>`
 
     &:hover {
         background-color: #739072;
-    } 
+    };
 `
 
 const ErrorOcurredContainer = styled.div`

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { WeatherScreenStyle } from './WeatherScreen.style'
 import { TbDropletSearch } from 'react-icons/tb'
 import axios from 'axios'
@@ -23,6 +23,10 @@ export default function WeatherScreen() {
         value: 'pt',
     })
 
+    useEffect(() => {
+        setDataForecast([])
+        setLocationForecast([])
+    }, [languageSelected])
 
     const handleChange = (event: any, state: any) => state(event.target.value)
 
@@ -122,7 +126,7 @@ export default function WeatherScreen() {
             {renderErrorIfOcurred()}
 
             {dataForecast.length > 0 ?
-                <WeatherScreenStyle.CurrentWeatherContainer />
+                <WeatherScreenStyle.CurrentWeatherContainer></WeatherScreenStyle.CurrentWeatherContainer>
                 : null
             }
 
