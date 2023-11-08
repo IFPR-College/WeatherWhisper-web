@@ -4,12 +4,13 @@ import { Button, Input } from '@chakra-ui/react'
 
 const Container = styled.div`
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     background-color: ${ThemesColors.grayPrimary};
     display: flex;
     flex-direction: column;
     font-family: 'OptimusPrinceps', sans-serif;
     font-size: 25px;
+    overflow: auto;
 `
 
 const InputStyled = styled(Input)`
@@ -66,26 +67,32 @@ const InputField = styled.div`
 
 const TabsContainer = styled.div`
     display: flex;
-    flex-grow: 1;
-    align-items:center;
+    flex-grow: 1;  
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap
+    ;
 `
 
-const Tabs = styled.div`
-    height: calc(100% - 150px);
+const Tabs = styled.div<any>`
+    height: 100%;
     width: 100%;
+    max-height: 300px;
+    max-width: 300px;
     background-color: ${ThemesColors.whitePrimary};
+    background-color: ${(props:any) => props.selected ? '#739072' : ThemesColors.whitePrimary};
     border-radius: 15px;
     margin: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    position: relative;
-    cursor:pointer;
+    cursor: pointer;
+    transition: .3s;
 
-    :hover {
-        background-color: #f00
-    }
+    &:hover {
+        background-color: #739072;
+    } 
 `
 
 const ErrorOcurredContainer = styled.div`
@@ -116,6 +123,7 @@ const TabHeader = styled.div`
     flex-direction: column;
     flex-grow: 1;
     width: 100%;
+    font-size: 22px;
 `
 
 const TabBody = styled.div`
@@ -125,16 +133,20 @@ const TabBody = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-size: 22px;
+    text-align: center;
 `
 
 const TabFooter = styled.div`
     display: flex;
     width: 100%;
-    flex-grow: 2;
     background-color: #113946;
     justify-content: center;
     align-items: center;
-    color:#fff;
+    color: #fff;
+    min-height: 40px;
+    font-size: 22px;
+    border-radius: 10px;
 `
 
 const SelectContainer = styled.div`
@@ -148,20 +160,21 @@ const Header = styled.div`
 `
 
 const TempContainer = styled.div`
-    display:flex;
+    display: flex;
     flex-grow: 1;
-    width:100%;
-    justify-content:center;
-    align-items:center;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 `
 
 const CurrentWeatherContainer = styled.div`
-    width:calc(100% - 60px);
-    height:50%;
+    width: calc(100% - 60px);
+    height: 50%;
+    min-height:350px;
     background-color: ${ThemesColors.whitePrimary};
-    margin-right:30px;
-    margin-left:30px;
-    border-radius:15px
+    margin-right: 30px;
+    margin-left: 30px;
+    border-radius: 15px;
 `
 
 export const WeatherScreenStyle = {
@@ -181,5 +194,5 @@ export const WeatherScreenStyle = {
     SelectContainer,
     Header,
     TempContainer,
-    CurrentWeatherContainer
+    CurrentWeatherContainer,
 }

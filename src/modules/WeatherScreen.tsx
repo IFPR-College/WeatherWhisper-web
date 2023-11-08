@@ -129,7 +129,7 @@ export default function WeatherScreen() {
             <WeatherScreenStyle.TabsContainer>
                 {dataForecast?.map((item: any, index: number) => {
                     return (
-                        <WeatherScreenStyle.Tabs key={`item-${index}`} onClick={() => console.log('item', index)}>
+                        <WeatherScreenStyle.Tabs key={`item-${index}`} onClick={() => setIndexSelected(index)} selected={index === indexSelected}>
                             <WeatherScreenStyle.TabHeader>
                                 <WeatherScreenStyle.TabNameLocation>
                                     {locationForecast?.name} -{' '}
