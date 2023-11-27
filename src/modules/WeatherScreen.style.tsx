@@ -168,13 +168,14 @@ const TempContainer = styled.div`
 
 const CurrentWeatherContainer = styled.div`
     width: calc(100% - 60px);
-    height: 50%;
+    height: 40%;
     min-height:350px;
     background-color: ${ThemesColors.whitePrimary};
     margin-right: 30px;
     margin-left: 30px;
     border-radius: 15px;
 `
+
 
 export const WeatherScreenStyle = {
     Container,
